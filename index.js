@@ -11,4 +11,11 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/blog", blogRoutes);
 
+app.use((error, req, res, next) => {
+  res.status(error.errorStatus || 500).json({
+    message: error.message,
+    data: error.data,
+  });
+});
+
 app.listen(4000);
